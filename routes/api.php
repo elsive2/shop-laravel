@@ -31,3 +31,13 @@ Route::controller(AuthController::class)->group(function () {
     });
 });
 
+// Product
+Route::controller(ProductController::class)->prefix('products')->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{product}', 'view');
+
+    Route::middleware('auth:api')->group(function () {
+        Route::post('/', 'create');
+        Route::delete('/{product}', 'delete');
+    });
+});
