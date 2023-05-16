@@ -18,12 +18,13 @@ services:
         container_name: php
         links:
             - mysql
-        volumes:
+        volumes
             - ./:/var/www/shop-laravel
             - ./docker/logs/app:/var/log
 
     mysql:
         image: mariadb:10
+        container_name: mysqlHost
         volumes:
            - ./docker/db-data:/var/lib/mysql
         environment:
