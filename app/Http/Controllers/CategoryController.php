@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Utils\ArrayUtils;
 
@@ -33,5 +34,10 @@ class CategoryController extends Controller
         $category->delete();
 
         return ['success' => 200];
+    }
+
+    public function getByCategory(Category $category)
+    {
+        return ProductResource::collection($category->products);
     }
 }

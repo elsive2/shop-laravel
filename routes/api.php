@@ -51,5 +51,6 @@ Route::controller(CategoryController::class)->prefix('categories')->group(functi
     Route::middleware('auth:api')->group(function () {
         Route::post('/', 'create');
         Route::delete('/{category}', 'delete');
+        Route::get('/{category}/products', 'getByCategory');
     });
 });

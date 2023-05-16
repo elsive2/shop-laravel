@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -20,19 +20,11 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    public function create(Request $request)
+    public function create(ProductRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|integer'
-        ]);
+        $product = Product::create($request->validated());
 
-        $user = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-        ]);
+        return new ProductResource($product);
     }
 
     public function delete(Product $product)
