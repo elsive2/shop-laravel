@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,5 +40,16 @@ Route::controller(ProductController::class)->prefix('products')->group(function 
     Route::middleware('auth:api')->group(function () {
         Route::post('/', 'create');
         Route::delete('/{product}', 'delete');
+    });
+});
+
+// Category
+Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{category}', 'view');
+
+    Route::middleware('auth:api')->group(function () {
+        Route::post('/', 'create');
+        Route::delete('/{category}', 'delete');
     });
 });
