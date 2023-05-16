@@ -1,0 +1,33 @@
+version: '3'
+services:
+    nginx:
+        image: nginx:latest
+        container_name: nginx
+        ports:
+            - "80:80"
+        volumes:
+            - ./docker/nginx/hosts:/etc/nginx/conf.d
+            - ./:/var/www/shop-laravel
+            - ./docker/logs/nginx:/var/log/nginx
+        depends_on:
+            - php
+        restart: unless-stopped
+
+    php:
+        build: ./docker/php
+        container_name: php
+        links:
+            - mysql
+        volumes:
+            - ./:/var/www/shop-laravel
+            - ./docker/logs/app:/var/log
+
+    mysql:
+        image: mariadb:10
+        volumes:
+           - ./docker/db-data:/var/lib/mysql
+        environment:
+          - TZ=Asia/Almaty
+          - MYSQL_ROOT_PASSWORD=password
+        ports:
+          - 3306:3306
