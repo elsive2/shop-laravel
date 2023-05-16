@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $data = Product::all();
+        $data = Product::with('category')->all();
 
         return ProductResource::collection($data);
     }

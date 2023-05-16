@@ -38,6 +38,8 @@ class CategoryController extends Controller
 
     public function getByCategory(Category $category)
     {
-        return ProductResource::collection($category->products);
+        $products = $category->products()->with('category')->get();
+
+        return ProductResource::collection($products);
     }
 }
